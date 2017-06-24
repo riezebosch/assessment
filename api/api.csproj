@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Content Include="Dockerfile" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />

@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import {HTTP} from '../util/http-common'
 export default {
   name: 'hello',
   data () {
@@ -22,7 +23,7 @@ export default {
     }
   },
   created () {
-    this.axios.get('http://localhost:5000/api/values/1').then(response => {
+    HTTP.get('values/1').then(response => {
       this.title = response.data.title
       this.entries = response.data.entries.map(_ => { _.input = ''; return _ })
     })

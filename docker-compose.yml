@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+    pritix-web:
+        container_name: pritix-web
+        image: web
+        networks: 
+            - pritix
+
+    pritix-api:
+        container_name: pritix-api
+        image: api
+        networks: 
+            - pritix
+
+    pritix-proxy:
+        container_name: pritix-proxy
+        image: proxy
+        depends_on: 
+            - pritix-api
+            - pritix-web
+        networks: 
+            - pritix
+        ports: 
+            - 8081:80
+
+networks: 
+    pritix:
+        driver: bridge
