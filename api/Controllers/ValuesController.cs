@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.db;
+using api.db.model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private WordListContext context;
+
+        public ValuesController(WordListContext context)
+        {
+            this.context = context;
+        }
+
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Entry> Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.context.Entries.AsNoTracking().ToList();
         }
 
         // GET api/values/5

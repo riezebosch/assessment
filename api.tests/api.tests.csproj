@@ -3,6 +3,8 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="microsoft.entityframeworkcore" Version="1.1.2" />
+    <PackageReference Include="microsoft.entityframeworkcore.inmemory" Version="1.1.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
     <PackageReference Include="NewtonSoft.Json" Version="10.0.3" />
     <PackageReference Include="xunit" Version="2.2.0" />

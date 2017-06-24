@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Xunit;
 
-namespace api.db.tests 
+namespace api.db.model.tests 
 {
     public class EntryTests 
     {

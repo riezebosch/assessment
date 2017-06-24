@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace api.db
+namespace api.db.model
 {
     public class Entry
     {
