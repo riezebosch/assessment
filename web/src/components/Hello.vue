@@ -18,16 +18,13 @@ export default {
   data () {
     return {
       title: 'Dierennamen',
-      entries: [{
-        word: 'aap',
-        translation: 'monkey',
-        input: ''
-      }, {
-        word: 'ezel',
-        translation: 'donkey',
-        input: ''
-      }]
+      entries: []
     }
+  },
+  created () {
+    this.axios.get('http://localhost:5000/api/values').then(response => {
+      this.entries = response.data.map(_ => { _.input = ''; return _ })
+    })
   }
 }
 </script>

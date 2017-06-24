@@ -30,12 +30,12 @@ namespace api
                 .Options;
             using (var context = new WordListContext(options))
             {
-                if (context.Database.EnsureCreated()) 
+                if (context.Database.EnsureCreated())
                 {
                     context.Entries.AddRange(new Entry
                     {
-                       Word = "aap",
-                       Translation = "monkey" 
+                        Word = "aap",
+                        Translation = "monkey"
                     },
                     new Entry
                     {
@@ -55,6 +55,7 @@ namespace api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddCors();
             services.AddMvc();
             services.AddDbContext<WordListContext>(options => options.UseSqlite(@"Filename=data.db"));
         }
@@ -64,6 +65,14 @@ namespace api
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.AllowCredentials();
+                builder.AllowAnyOrigin();
+            });
 
             app.UseMvc();
         }
