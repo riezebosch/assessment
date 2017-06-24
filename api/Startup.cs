@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using api.db.model;
+using api.db;
 
 namespace api
 {
@@ -20,6 +23,30 @@ namespace api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+
+            var options = new DbContextOptionsBuilder<WordListContext>()
+                .UseSqlite(@"Filename=data.db")
+                .Options;
+            using (var context = new WordListContext(options))
+            {
+                if (context.Database.EnsureCreated()) 
+                {
+                    context.Entries.AddRange(new Entry
+                    {
+                       Word = "aap",
+                       Translation = "monkey" 
+                    },
+                    new Entry
+                    {
+                        Word = "ezel",
+                        Translation = "donkey"
+                    });
+
+                    context.SaveChanges();
+                }
+
+            }
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -29,6 +56,7 @@ namespace api
         {
             // Add framework services.
             services.AddMvc();
+            services.AddDbContext<WordListContext>(options => options.UseSqlite(@"Filename=data.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
