@@ -9,6 +9,6 @@ namespace api.db
         {
         }
 
-        public DbSet<Entry> Entries { get; internal set; }
+        public DbSet<WordList> WordLists { get; set; }
     }
 }

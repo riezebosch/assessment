@@ -17,13 +17,14 @@ export default {
   name: 'hello',
   data () {
     return {
-      title: 'Dierennamen',
+      title: '',
       entries: []
     }
   },
   created () {
-    this.axios.get('http://localhost:5000/api/values').then(response => {
-      this.entries = response.data.map(_ => { _.input = ''; return _ })
+    this.axios.get('http://localhost:5000/api/values/1').then(response => {
+      this.title = response.data.title
+      this.entries = response.data.entries.map(_ => { _.input = ''; return _ })
     })
   }
 }

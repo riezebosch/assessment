@@ -30,22 +30,26 @@ namespace api
                 .Options;
             using (var context = new WordListContext(options))
             {
-                if (context.Database.EnsureCreated())
-                {
-                    context.Entries.AddRange(new Entry
-                    {
-                        Word = "aap",
-                        Translation = "monkey"
-                    },
-                    new Entry
-                    {
-                        Word = "ezel",
-                        Translation = "donkey"
-                    });
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
 
-                    context.SaveChanges();
-                }
+                context.WordLists.Add(new WordList {
+                    Title = "Dierennamen",
+                    Entries = new List<Entry> {
+                        new Entry
+                        {
+                            Word = "aap",
+                            Translation = "monkey"
+                        },
+                        new Entry
+                        {
+                            Word = "ezel",
+                            Translation = "donkey"
+                        }
+                    }
+                });
 
+                context.SaveChanges();
             }
         }
 

@@ -21,16 +21,27 @@ namespace api.Controllers
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Entry> Get()
+        public async Task<IActionResult> Get()
         {
-            return this.context.Entries.AsNoTracking().ToList();
+            return Ok(await this.context.WordLists.AsNoTracking().ToListAsync());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            var list = await context
+                .WordLists
+                .Include(l => l.Entries)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(l => l.Id == id);
+
+            if (list != null)
+            {
+                return Ok(list);
+            }
+
+            return NotFound(id);
         }
 
         // POST api/values
