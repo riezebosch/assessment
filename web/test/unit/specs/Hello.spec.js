@@ -6,6 +6,13 @@ describe('Hello.vue', () => {
     const Constructor = Vue.extend(Hello)
     const vm = new Constructor().$mount()
     expect(vm.$el.querySelector('.hello h1').textContent)
-      .to.equal('Welcome to Your Vue.js App')
+      .to.equal('Dierennamen')
+  })
+
+  it('should render the entries', () => {
+    const Constructor = Vue.extend(Hello)
+    const vm = new Constructor().$mount()
+    expect(vm.$el.querySelector('.hello ul li span:first-child').textContent)
+      .to.equal('aap')
   })
 })
